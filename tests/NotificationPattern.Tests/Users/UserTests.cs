@@ -25,10 +25,6 @@ namespace NotificationPattern.Tests.Users
             // assert
 
             Assert.IsType<InvalidOperationException>(exception);
-            Assert.Contains("FirstName", exception.Message);
-            Assert.Contains("LastName", exception.Message);
-            Assert.Contains("Email", exception.Message);
-            Assert.Contains("Password", exception.Message);
         }
 
         [Fact]
@@ -45,11 +41,11 @@ namespace NotificationPattern.Tests.Users
 
             // act
 
-            var isValidUser = user.IsValid();
+            var isValid = user.IsValid();
 
             // assert
 
-            Assert.True(isValidUser);
+            Assert.True(isValid);
         }
     }
 }

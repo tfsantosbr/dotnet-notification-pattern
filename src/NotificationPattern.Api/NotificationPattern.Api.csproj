@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\shared\NotificationPattern.Shared.Notifications\NotificationPattern.Shared.Notifications.csproj" />
+    <ProjectReference Include="..\NotificationPattern.Domain\NotificationPattern.Domain.csproj" />
   </ItemGroup>
 
 </Project>

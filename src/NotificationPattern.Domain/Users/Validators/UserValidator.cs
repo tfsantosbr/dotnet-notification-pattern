@@ -7,14 +7,9 @@ namespace NotificationPattern.Domain.Users.Validators
     {
         public UserValidator()
         {
-            RuleFor(p => p.FirstName).NotEmpty().Length(2, 150);
-            RuleFor(p => p.LastName).NotEmpty().Length(2, 150);
-            RuleFor(p => p.Email).NotEmpty().Length(2, 150).EmailAddress();
-            RuleFor(p => p.Password)
-                .NotEmpty()
-                .Length(8, 20)
-                .Matches(@"[A-Z]+").WithMessage("Your password must contain at least one uppercase letter.")
-                .Matches(@"[0-9]+").WithMessage("Your password must contain at least one number.");
+            RuleFor(p => p.CompleteName).NotEmpty();
+            RuleFor(p => p.Email).NotEmpty();
+            RuleFor(p => p.Password).NotEmpty();
         }
     }
 }

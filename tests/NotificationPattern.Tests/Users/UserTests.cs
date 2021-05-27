@@ -1,4 +1,5 @@
-﻿using NotificationPattern.Domain.Entities;
+﻿using NotificationPattern.Domain.Core.ValueObjects;
+using NotificationPattern.Domain.Entities;
 using System;
 using Xunit;
 
@@ -12,10 +13,9 @@ namespace NotificationPattern.Tests.Users
             // arrange
 
             static void createUser() => new User(
-                firstName: "",
-                lastName: "",
-                email: "",
-                password: ""
+                completeName: null,
+                email: null,
+                password: null
                 );
 
             // act
@@ -33,10 +33,9 @@ namespace NotificationPattern.Tests.Users
             // arrange
 
             var user = new User(
-                firstName: "Tiago",
-                lastName: "Santos",
-                email: "tiago@email.com",
-                password: "PaSsW0rd"
+                completeName: new CompleteName("Tiago","Santos"),
+                email: new Email("tiago@email.com"),
+                password: new Password("PaSsW0rd")
                 );
 
             // act

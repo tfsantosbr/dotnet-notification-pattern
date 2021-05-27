@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NotificationPattern.Domain.Commands;
+using NotificationPattern.Domain.Core.ValueObjects;
 using NotificationPattern.Domain.Entities;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,12 @@ namespace NotificationPattern.Api.Controllers
             if (!request.IsValid())
                 return BadRequest(request.GetNotifications());
 
-            var user = new User(request.FirstName, request.LastName, request.Email, request.Password);
+            var user = new User(
+                completeName: new CompleteName(request.FirstName, request.LastName),
+                email: new Email(request.Email),
+                password: new Password(request.Password)
+                );
+
             _users.Add(user);
 
             return Created($"users/{user.Id}", user);
@@ -42,7 +48,7 @@ namespace NotificationPattern.Api.Controllers
             if (user is null)
                 return NotFound();
 
-            user.UpdateDetails(request.FirstName, request.LastName);
+            user.UpdateDetails(new CompleteName(request.FirstName, request.LastName));
 
             return NoContent();
         }
@@ -58,7 +64,7 @@ namespace NotificationPattern.Api.Controllers
             if (user is null)
                 return NotFound();
 
-            user.UpdateEmail(request.Email);
+            user.UpdateEmail(new Email(request.Email));
 
             return NoContent();
         }
@@ -74,7 +80,7 @@ namespace NotificationPattern.Api.Controllers
             if (user is null)
                 return NotFound();
 
-            user.UpdatePassword(request.Password);
+            user.UpdatePassword(new Password(request.Password));
 
             return NoContent();
         }

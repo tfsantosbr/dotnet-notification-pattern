@@ -1,4 +1,5 @@
-﻿using NotificationPattern.Domain.Users.Validators;
+﻿using NotificationPattern.Domain.Core.ValueObjects;
+using NotificationPattern.Domain.Users.Validators;
 using NotificationPattern.Shared.Notifications;
 using System;
 
@@ -6,11 +7,10 @@ namespace NotificationPattern.Domain.Entities
 {
     public class User : Notifiable
     {
-        public User(string firstName, string lastName, string email, string password, Guid? id = null)
+        public User(CompleteName completeName, Email email, Password password, Guid? id = null)
         {
             Id = id ?? Guid.NewGuid();
-            FirstName = firstName;
-            LastName = lastName;
+            CompleteName = completeName;
             Email = email;
             Password = password;
 
@@ -18,23 +18,21 @@ namespace NotificationPattern.Domain.Entities
         }
 
         public Guid Id { get; private set; }
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        public string Email { get; private set; }
-        public string Password { get; private set; }
+        public CompleteName CompleteName { get; private set; }
+        public Email Email { get; private set; }
+        public Password Password { get; private set; }
 
-        public void UpdateDetails(string firstName, string lastName)
+        public void UpdateDetails(CompleteName completeName)
         {
-            FirstName = firstName;
-            LastName = lastName;
+            CompleteName = completeName;
         }
 
-        public void UpdatePassword(string password)
+        public void UpdatePassword(Password password)
         {
             Password = password;
         }
 
-        public void UpdateEmail(string email)
+        public void UpdateEmail(Email email)
         {
             Email = email;
         }

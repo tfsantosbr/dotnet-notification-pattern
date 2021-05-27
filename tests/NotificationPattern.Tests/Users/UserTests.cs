@@ -15,7 +15,8 @@ namespace NotificationPattern.Tests.Users
             static void createUser() => new User(
                 completeName: null,
                 email: null,
-                password: null
+                password: null,
+                birthDate: new DateTime()
                 );
 
             // act
@@ -35,7 +36,8 @@ namespace NotificationPattern.Tests.Users
             var user = new User(
                 completeName: new CompleteName("Tiago","Santos"),
                 email: new Email("tiago@email.com"),
-                password: new Password("PaSsW0rd")
+                password: new Password("PaSsW0rd"),
+                birthDate: new DateTime(1987,3,13)
                 );
 
             // act

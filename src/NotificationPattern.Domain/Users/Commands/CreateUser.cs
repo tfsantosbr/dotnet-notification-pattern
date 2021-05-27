@@ -1,5 +1,6 @@
 ﻿using NotificationPattern.Domain.Users.Validators;
 using NotificationPattern.Shared.Notifications;
+using System;
 
 namespace NotificationPattern.Domain.Commands
 {
@@ -10,6 +11,7 @@ namespace NotificationPattern.Domain.Commands
         public string Email { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
+        public DateTime BirthDate { get; set; }
 
         public override bool IsValid()
         {

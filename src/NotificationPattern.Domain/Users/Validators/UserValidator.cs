@@ -10,6 +10,7 @@ namespace NotificationPattern.Domain.Users.Validators
             RuleFor(p => p.CompleteName).NotEmpty();
             RuleFor(p => p.Email).NotEmpty();
             RuleFor(p => p.Password).NotEmpty();
+            RuleFor(p => p.BirthDate).NotEmpty();
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using NotificationPattern.Domain.Commands;
 using NotificationPattern.Domain.Core.ValueObjects;
 using NotificationPattern.Domain.Entities;
+using NotificationPattern.Domain.Users.Handlers;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,11 +14,16 @@ namespace NotificationPattern.Api.Controllers
     public class UsersController : ControllerBase
     {
         private readonly ILogger<UsersController> _logger;
-        private static readonly List<User> _users = new();
+        private readonly UserCommandsHandler _createUserHandler;
 
         public UsersController(ILogger<UsersController> logger)
         {
             _logger = logger;
+        }
+
+        public UsersController(UserCommandsHandler createUserHandler)
+        {
+            _createUserHandler = createUserHandler;
         }
 
         [HttpPost]
@@ -26,13 +32,7 @@ namespace NotificationPattern.Api.Controllers
             if (!request.IsValid())
                 return BadRequest(request.GetNotifications());
 
-            var user = new User(
-                completeName: new CompleteName(request.FirstName, request.LastName),
-                email: new Email(request.Email),
-                password: new Password(request.Password)
-                );
-
-            _users.Add(user);
+            var user = _createUserHandler.Handler(request);
 
             return Created($"users/{user.Id}", user);
         }
@@ -43,12 +43,7 @@ namespace NotificationPattern.Api.Controllers
             if (!request.IsValid())
                 return BadRequest(request.GetNotifications());
 
-            var user = _users.FirstOrDefault(u => u.Id == request.Id);
-
-            if (user is null)
-                return NotFound();
-
-            user.UpdateDetails(new CompleteName(request.FirstName, request.LastName));
+            _createUserHandler.Handler(request);
 
             return NoContent();
         }
@@ -59,12 +54,7 @@ namespace NotificationPattern.Api.Controllers
             if (!request.IsValid())
                 return BadRequest(request.GetNotifications());
 
-            var user = _users.FirstOrDefault(u => u.Id == request.Id);
-
-            if (user is null)
-                return NotFound();
-
-            user.UpdateEmail(new Email(request.Email));
+            _createUserHandler.Handler(request);
 
             return NoContent();
         }
@@ -75,12 +65,7 @@ namespace NotificationPattern.Api.Controllers
             if (!request.IsValid())
                 return BadRequest(request.GetNotifications());
 
-            var user = _users.FirstOrDefault(u => u.Id == request.Id);
-
-            if (user is null)
-                return NotFound();
-
-            user.UpdatePassword(new Password(request.Password));
+            _createUserHandler.Handler(request);
 
             return NoContent();
         }

@@ -1,4 +1,5 @@
-﻿using NotificationPattern.Domain.Entities;
+﻿using NotificationPattern.Domain.Core.ValueObjects;
+using NotificationPattern.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,19 @@ namespace NotificationPattern.Domain.Users.Repository
             var currentUser = GetById(user.Id);
 
             if (currentUser != null) currentUser = user;
+        }
+
+        public bool AnyEmail(Email email, Guid userId)
+        {
+            return _users.Any(u => 
+                u.Email.Address == email.Address && 
+                u.Id != userId
+                );
+        }
+
+        public bool AnyUser(Guid userId)
+        {
+            return _users.Any(u => u.Id == userId);
         }
     }
 }

@@ -7,18 +7,20 @@ namespace NotificationPattern.Domain.Entities
 {
     public class User : Notifiable
     {
-        public User(CompleteName completeName, Email email, Password password, Guid? id = null)
+        public User(CompleteName completeName, Email email, Password password, DateTime birthDate, Guid? id = null)
         {
             Id = id ?? Guid.NewGuid();
             CompleteName = completeName;
             Email = email;
             Password = password;
+            BirthDate = birthDate;
 
             EnsureValidation();
         }
 
         public Guid Id { get; private set; }
         public CompleteName CompleteName { get; private set; }
+        public DateTime BirthDate { get; private set; }
         public Email Email { get; private set; }
         public Password Password { get; private set; }
 

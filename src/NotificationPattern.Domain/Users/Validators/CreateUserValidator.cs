@@ -11,6 +11,7 @@ namespace NotificationPattern.Domain.Users.Validators
             RuleFor(p => p.LastName).NotEmpty().Length(2, 150);
             RuleFor(p => p.Email).NotEmpty().Length(2, 150).EmailAddress();
             RuleFor(p => p.ConfirmPassword).Equal(p => p.Password);
+            RuleFor(p => p.BirthDate).NotEmpty();
             RuleFor(p => p.Password)
                 .NotEmpty()
                 .Length(8, 20)

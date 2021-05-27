@@ -2,7 +2,7 @@
 
 namespace NotificationPattern.Shared.Notifications.Interfaces
 {
-    public interface INotificationService
+    public interface INotifier
     {
         bool HasNotifications();
 

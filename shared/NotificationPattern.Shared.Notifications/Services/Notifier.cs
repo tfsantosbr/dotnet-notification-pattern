@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace NotificationPattern.Shared.Notifications.Services
 {
-    public class NotificationService : INotificationService, IDisposable
+    public class Notifier : INotifier, IDisposable
     {
         private readonly List<Notification> _notifications = new();
 

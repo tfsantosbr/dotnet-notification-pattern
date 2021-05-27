@@ -9,6 +9,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NotificationPattern.Domain.Users.Handlers;
 using NotificationPattern.Domain.Users.Repository;
+using NotificationPattern.Shared.Notifications.Interfaces;
+using NotificationPattern.Shared.Notifications.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +27,6 @@ namespace NotificationPattern.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -36,9 +37,9 @@ namespace NotificationPattern.Api
 
             services.AddTransient<UserCommandsHandler>();
             services.AddTransient<UserRepository>();
+            services.AddScoped<INotifier, Notifier>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

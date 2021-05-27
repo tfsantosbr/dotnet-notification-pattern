@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using NotificationPattern.Domain.Commands;
-using NotificationPattern.Domain.Core.ValueObjects;
-using NotificationPattern.Domain.Entities;
 using NotificationPattern.Domain.Users.Handlers;
-using System.Collections.Generic;
-using System.Linq;
+using NotificationPattern.Domain.Users.Repository;
+using NotificationPattern.Shared.Notifications.Interfaces;
 
 namespace NotificationPattern.Api.Controllers
 {
@@ -13,26 +10,26 @@ namespace NotificationPattern.Api.Controllers
     [Route("users")]
     public class UsersController : ControllerBase
     {
-        private readonly ILogger<UsersController> _logger;
-        private readonly UserCommandsHandler _createUserHandler;
+        private readonly UserCommandsHandler _handler;
+        private readonly UserRepository _userRepository;
+        private readonly INotifier _notifier;
 
-        public UsersController(ILogger<UsersController> logger)
+        public UsersController(UserCommandsHandler handler, INotifier notifier, UserRepository userRepository)
         {
-            _logger = logger;
-        }
-
-        public UsersController(UserCommandsHandler createUserHandler)
-        {
-            _createUserHandler = createUserHandler;
+            _handler = handler;
+            _notifier = notifier;
+            _userRepository = userRepository;
         }
 
         [HttpPost]
         public IActionResult CreateUser(CreateUser request)
         {
-            if (!request.IsValid())
-                return BadRequest(request.GetNotifications());
+            var user = _handler.Handle(request);
 
-            var user = _createUserHandler.Handler(request);
+            if (_notifier.HasNotifications())
+            {
+                return UnprocessableEntity(_notifier.GetNotifications());
+            }
 
             return Created($"users/{user.Id}", user);
         }
@@ -40,10 +37,17 @@ namespace NotificationPattern.Api.Controllers
         [HttpPut("details")]
         public IActionResult UpdateUserDetails(UpdateUserDetails request)
         {
-            if (!request.IsValid())
-                return BadRequest(request.GetNotifications());
+            if (!_userRepository.AnyUser(request.Id))
+            {
+                return NotFound();
+            }
 
-            _createUserHandler.Handler(request);
+            _handler.Handle(request);
+
+            if (!_notifier.HasNotifications())
+            {
+                return BadRequest(_notifier.GetNotifications());
+            }
 
             return NoContent();
         }
@@ -51,10 +55,17 @@ namespace NotificationPattern.Api.Controllers
         [HttpPut("email")]
         public IActionResult UpdateUserEmail(UpdateUserEmail request)
         {
-            if (!request.IsValid())
-                return BadRequest(request.GetNotifications());
+            if (!_userRepository.AnyUser(request.Id))
+            {
+                return NotFound();
+            }
 
-            _createUserHandler.Handler(request);
+            _handler.Handle(request);
+
+            if (!_notifier.HasNotifications())
+            {
+                return BadRequest(_notifier.GetNotifications());
+            }
 
             return NoContent();
         }
@@ -62,10 +73,17 @@ namespace NotificationPattern.Api.Controllers
         [HttpPut("password")]
         public IActionResult UpdateUserPassword(UpdateUserPassword request)
         {
-            if (!request.IsValid())
-                return BadRequest(request.GetNotifications());
+            if (!_userRepository.AnyUser(request.Id))
+            {
+                return NotFound();
+            }
 
-            _createUserHandler.Handler(request);
+            _handler.Handle(request);
+
+            if (!_notifier.HasNotifications())
+            {
+                return BadRequest(_notifier.GetNotifications());
+            }
 
             return NoContent();
         }

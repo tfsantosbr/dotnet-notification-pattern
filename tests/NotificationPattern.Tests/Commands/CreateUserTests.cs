@@ -40,7 +40,8 @@ namespace NotificationPattern.Tests.Commands
                 LastName = "Santos",
                 Email = "tiago@email.com",
                 Password = "Passw0rd",
-                ConfirmPassword = "Passw0rd"
+                ConfirmPassword = "Passw0rd",
+                BirthDate = new DateTime(1987, 3, 13)
             };
 
             // act & assert

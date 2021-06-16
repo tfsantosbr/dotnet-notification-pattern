@@ -27,10 +27,10 @@ namespace NotificationPattern.Domain.Products.Handlers
 
             // TODO: Verifica se o EAN informado já não está cadastrado
             // substituir a exception por uma notificação
-            if (_productRepository.AnyProductByEan(product.EAN))
-            {
-                throw new Exception("Já existe um produto com este EAN");
-            }
+            // if (_productRepository.AnyProductByEan(product.EAN))
+            // {
+            //     throw new Exception("Já existe um produto com este EAN");
+            // }
 
             // Adiciona o produto no repositório
             _productRepository.Add(product);

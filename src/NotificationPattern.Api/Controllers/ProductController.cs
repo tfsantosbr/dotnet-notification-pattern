@@ -19,6 +19,12 @@ namespace NotificationPattern.Api.Controllers
             _userRepository = userRepository;
         }
 
+        [HttpGet]
+        public IActionResult ListProducts()
+        {
+            return Ok(_userRepository.ListProducts());
+        }
+
         [HttpPost]
         public IActionResult CreateProduct(CreateProduct request)
         {
@@ -30,6 +36,8 @@ namespace NotificationPattern.Api.Controllers
         [HttpPut("{productId}")]
         public IActionResult CreateProduct(Guid productId, UpdateProduct request)
         {
+            request.Id = productId;
+            
             _handler.Handle(request);
 
             return NoContent();

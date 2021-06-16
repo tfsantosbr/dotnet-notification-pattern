@@ -29,5 +29,10 @@ namespace NotificationPattern.Domain.Products.Repository
 
             if (currentProduct != null) currentProduct = product;
         }
+
+        public IEnumerable<Product> ListProducts()
+        {
+            return _products;
+        }
     }
 }

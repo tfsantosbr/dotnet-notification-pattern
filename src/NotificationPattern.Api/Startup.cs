@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using NotificationPattern.Domain.Products.Handlers;
+using NotificationPattern.Domain.Products.Repository;
 using NotificationPattern.Domain.Users.Handlers;
 using NotificationPattern.Domain.Users.Repository;
 using NotificationPattern.Shared.Notifications.Interfaces;
@@ -35,9 +37,13 @@ namespace NotificationPattern.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "NotificationPattern.Api", Version = "v1" });
             });
 
+            services.AddScoped<INotifier, Notifier>();
+
             services.AddTransient<UserCommandsHandler>();
             services.AddTransient<UserRepository>();
-            services.AddScoped<INotifier, Notifier>();
+
+            services.AddTransient<ProductCommandsHandler>();
+            services.AddTransient<ProductRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -2,6 +2,7 @@
 using NotificationPattern.Domain.Commands;
 using NotificationPattern.Domain.Users.Handlers;
 using NotificationPattern.Domain.Users.Repository;
+using NotificationPattern.Shared.Notifications;
 using NotificationPattern.Shared.Notifications.Interfaces;
 
 namespace NotificationPattern.Api.Controllers
@@ -37,10 +38,10 @@ namespace NotificationPattern.Api.Controllers
         [HttpPut("details")]
         public IActionResult UpdateUserDetails(UpdateUserDetails request)
         {
-            if (!_userRepository.AnyUser(request.Id))
-            {
-                return NotFound();
-            }
+            //if (!_userRepository.AnyUser(request.Id))
+            //{
+            //    return NotFound(new Notification("User", "User not found"));
+            //}
 
             _handler.Handle(request);
 

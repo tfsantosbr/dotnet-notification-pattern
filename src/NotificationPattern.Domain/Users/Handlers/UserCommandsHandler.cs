@@ -21,11 +21,11 @@ namespace NotificationPattern.Domain.Users.Handlers
 
         public User Handle(CreateUser request)
         {
-            if (!request.IsValid())
-            {
-                _notifier.AddNotifications(request.GetNotifications());
-                return null;
-            }
+            //if (!request.IsValid())
+            //{
+            //    _notifier.AddNotifications(request.GetNotifications());
+            //    return null;
+            //}
 
             var user = new User(
                 completeName: new CompleteName(request.FirstName, request.LastName),

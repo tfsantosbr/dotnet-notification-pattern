@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NotificationPattern.Shared.Notifications.Interfaces
+namespace NotificationPattern.Shared.Notifications
 {
     public interface INotifier
     {

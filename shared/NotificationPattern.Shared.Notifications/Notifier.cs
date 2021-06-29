@@ -1,9 +1,8 @@
-﻿using NotificationPattern.Shared.Notifications.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NotificationPattern.Shared.Notifications.Services
+namespace NotificationPattern.Shared.Notifications
 {
     public class Notifier : INotifier, IDisposable
     {

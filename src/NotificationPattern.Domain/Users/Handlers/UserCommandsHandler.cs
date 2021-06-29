@@ -3,7 +3,6 @@ using NotificationPattern.Domain.Core.ValueObjects;
 using NotificationPattern.Domain.Entities;
 using NotificationPattern.Domain.Users.Repository;
 using NotificationPattern.Shared.Notifications;
-using NotificationPattern.Shared.Notifications.Interfaces;
 using System;
 
 namespace NotificationPattern.Domain.Users.Handlers

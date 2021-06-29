@@ -3,7 +3,6 @@ using NotificationPattern.Domain.Commands;
 using NotificationPattern.Domain.Users.Handlers;
 using NotificationPattern.Domain.Users.Repository;
 using NotificationPattern.Shared.Notifications;
-using NotificationPattern.Shared.Notifications.Interfaces;
 
 namespace NotificationPattern.Api.Controllers
 {
